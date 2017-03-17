@@ -13,6 +13,11 @@
 		EE61CB2F1E7C6EBD004BB287 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE61CB271E7C6EBD004BB287 /* main.cpp */; };
 		EE61CB301E7C6EBD004BB287 /* Output_sorting_file.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE61CB281E7C6EBD004BB287 /* Output_sorting_file.cpp */; };
 		EE61CB311E7C6EBD004BB287 /* String_utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE61CB2A1E7C6EBD004BB287 /* String_utils.cpp */; };
+		EE61CB321E7C70F3004BB287 /* Counter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE61CB211E7C6EBD004BB287 /* Counter.cpp */; };
+		EE61CB331E7C70F6004BB287 /* File_token_counter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE61CB231E7C6EBD004BB287 /* File_token_counter.cpp */; };
+		EE61CB341E7C70F9004BB287 /* Input_file_list.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE61CB251E7C6EBD004BB287 /* Input_file_list.cpp */; };
+		EE61CB361E7C7103004BB287 /* Output_sorting_file.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE61CB281E7C6EBD004BB287 /* Output_sorting_file.cpp */; };
+		EE61CB371E7C7107004BB287 /* String_utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE61CB2A1E7C6EBD004BB287 /* String_utils.cpp */; };
 		EE9C6AB11E77280600347ECF /* counter_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE9C6AA31E77212800347ECF /* counter_test.cpp */; };
 /* End PBXBuildFile section */
 
@@ -76,13 +81,13 @@
 		EE61CB201E7C6EBD004BB287 /* source */ = {
 			isa = PBXGroup;
 			children = (
+				EE61CB271E7C6EBD004BB287 /* main.cpp */,
 				EE61CB211E7C6EBD004BB287 /* Counter.cpp */,
 				EE61CB221E7C6EBD004BB287 /* Counter.hpp */,
-				EE61CB231E7C6EBD004BB287 /* File_token_counter.cpp */,
-				EE61CB241E7C6EBD004BB287 /* File_token_counter.hpp */,
 				EE61CB251E7C6EBD004BB287 /* Input_file_list.cpp */,
 				EE61CB261E7C6EBD004BB287 /* Input_file_list.hpp */,
-				EE61CB271E7C6EBD004BB287 /* main.cpp */,
+				EE61CB231E7C6EBD004BB287 /* File_token_counter.cpp */,
+				EE61CB241E7C6EBD004BB287 /* File_token_counter.hpp */,
 				EE61CB281E7C6EBD004BB287 /* Output_sorting_file.cpp */,
 				EE61CB291E7C6EBD004BB287 /* Output_sorting_file.hpp */,
 				EE61CB2A1E7C6EBD004BB287 /* String_utils.cpp */,
@@ -235,6 +240,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EE61CB321E7C70F3004BB287 /* Counter.cpp in Sources */,
+				EE61CB331E7C70F6004BB287 /* File_token_counter.cpp in Sources */,
+				EE61CB361E7C7103004BB287 /* Output_sorting_file.cpp in Sources */,
+				EE61CB341E7C70F9004BB287 /* Input_file_list.cpp in Sources */,
+				EE61CB371E7C7107004BB287 /* String_utils.cpp in Sources */,
 				EE9C6AB11E77280600347ECF /* counter_test.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
