@@ -31,19 +31,7 @@ namespace counterLib {
 	class Counter {
 	public:
 		
-		/**
-		 *	Initializing Constructor
-		 *
-		 *	Opens the named input file for reading and 
-		 *	the named output file for writing.
-		 *
-		 *	@param inputFileName [IN] The filename (path) of the input file,
-		 *		which contains a list of filenames, one filename per line.
-		 *		The files should contain UTF-8 text for tokenization and counting. 
-		 *
-		 *	@param outputFileName [IN/OUT] The filename (path) of the output file.
-		 */
-		Counter(const std::string inputFileName, const std::string outputFileName);
+		static Counter* singleton_instance(const std::string inputFileName, const std::string outputFileName);
 		
 		/**
 		 *	Destructor
@@ -86,11 +74,26 @@ namespace counterLib {
 		}
 		
 	private:
+		/**
+		 *	Initializing Constructor
+		 *
+		 *	Opens the named input file for reading and
+		 *	the named output file for writing.
+		 *
+		 *	@param inputFileName [IN] The filename (path) of the input file,
+		 *		which contains a list of filenames, one filename per line.
+		 *		The files should contain UTF-8 text for tokenization and counting.
+		 *
+		 *	@param outputFileName [IN/OUT] The filename (path) of the output file.
+		 */
+		Counter(const std::string inputFileName, const std::string outputFileName);
+		
 		Input_file_list* ifl;
 		Output_sorting_file* osf;
 		Token_count_map tcm;
+		
 	};
-
+	
 }
 
 #endif /* Counter_hpp */

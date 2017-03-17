@@ -19,11 +19,12 @@ int main(int argc, const char * argv[]) {
 	}
 	else {
 		try {
-			counterLib::Counter c { argv[1], argv[2] };
-			c.execute();
+			std::unique_ptr<counterLib::Counter> c
+				{ counterLib::Counter::singleton_instance(argv[1],argv[2]) };
+			c->execute();
 			
 			std::cout << "Output written to " << argv[2] << ":" << std::endl;
-			c.result_to_output(std::cout);
+			c->result_to_output(std::cout);
 		}
 		catch (std::invalid_argument&  ia) {
 			std::cout << "Invalid argument: " << ia.what() << std::endl;

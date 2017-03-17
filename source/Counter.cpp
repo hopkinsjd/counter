@@ -8,6 +8,16 @@
 #include "Counter.hpp"
 
 namespace counterLib {
+	/*
+	 C++11 mandates that the initializer for a local static variable is only run once,
+	 even in the presence of concurrency. So, assuming you’ve got a modern C++ compiler,
+	 this code is thread-safe, where the classic example from Design Patterns 
+	 (Gamma, et al) is not.
+	 */
+	Counter* Counter::singleton_instance(const std::string inputFileName, const std::string outputFileName) {
+		static Counter * instance = new Counter(inputFileName, outputFileName);
+		return instance;
+	}
 
 	Counter::Counter(const std::string inputFileName, const std::string outputFileName) :
 		ifl {new Input_file_list { inputFileName } },

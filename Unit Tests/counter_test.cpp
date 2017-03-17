@@ -15,6 +15,8 @@ using namespace counterLib;
 /*	1.	Open a file specified as the first parameter on the command-line
 		that contains a list of filenames, one filename per line.
  */
+BOOST_AUTO_TEST_SUITE( Input_file_list_suite )
+
 BOOST_AUTO_TEST_CASE( Open_input_file ) {
 	BOOST_REQUIRE_NO_THROW(Input_file_list("input.txt"));
 }
@@ -28,6 +30,9 @@ BOOST_AUTO_TEST_CASE( Throw_error_when_opening_bad_input_file ) {
 	BOOST_REQUIRE_THROW(Input_file_list("bogus_file.txt"), std::invalid_argument);
 }
 
+BOOST_AUTO_TEST_SUITE_END()
+
+
 /*
 	2.	For each filename in the list, read each file and tokenize the contents.
 		a.	Tokenizing for this problem is defined as separating the file into words
@@ -35,6 +40,8 @@ BOOST_AUTO_TEST_CASE( Throw_error_when_opening_bad_input_file ) {
 			stripping leading and trailing punctuation, 
 			and forcing the token to be lowercase.
  */
+BOOST_AUTO_TEST_SUITE ( File_token_counter_test_suite )
+
 BOOST_AUTO_TEST_CASE( Open_each_file_for_token_counts ) {
 	Input_file_list ifl("input.txt");
 
@@ -93,11 +100,14 @@ BOOST_AUTO_TEST_CASE( Throw_error_when_opening_bad_token_file ) {
 	BOOST_REQUIRE_THROW(File_token_counter("bogus_file.txt"), std::invalid_argument);
 }
 
+BOOST_AUTO_TEST_SUITE_END()
+
 /*
 	3.	Output a file specified by the second parameter on the command line
 		containing a list of total unique tokens and their count, 
 		each on a separate line, sorted by frequency.
 */
+BOOST_AUTO_TEST_SUITE ( Output_sorting_file_test_suite )
 
 BOOST_AUTO_TEST_CASE( Can_open_output_file ) {
 	BOOST_REQUIRE_NO_THROW(Output_sorting_file("output.txt"));
@@ -160,11 +170,31 @@ BOOST_AUTO_TEST_CASE ( Output_tokens_are_unique ) {
 	
 }
 
+BOOST_AUTO_TEST_SUITE_END()
+
+
+namespace utf = boost::unit_test;
+
+struct F {
+	F() {
+		 Counter_singleton = Counter::singleton_instance( "input.txt", "output.txt");
+	}
+	
+	~F() {
+		delete Counter_singleton;
+	}
+
+	static Counter* Counter_singleton;
+		
+};
+
+Counter* F::Counter_singleton = nullptr;
+
+BOOST_AUTO_TEST_SUITE ( Counter_singleton_test_suite, * utf::fixture<F>() )
+
 BOOST_AUTO_TEST_CASE ( Output_file_generated ) {
-	{
-		Counter c { "input.txt", "output.txt" };
-		c.execute();
-	} // closes input and output files
+	
+	F::Counter_singleton->execute();
 	
 	std::ifstream output_file ("output.txt");
 	bool canOpen = false;
@@ -178,11 +208,9 @@ BOOST_AUTO_TEST_CASE ( Output_file_generated ) {
 
 BOOST_AUTO_TEST_CASE( Output_file_lines_match_token_count ) {
 	unsigned long token_count = 0;
-	{
-		Counter c { "input.txt", "output.txt" };
-		token_count = c.count_tokens();
-		c.generate_output();
-	} // closes input and output files
+	
+	token_count = F::Counter_singleton->count_tokens();
+	F::Counter_singleton->generate_output();
 	
 	std::ifstream output_file ("output.txt");
 	unsigned long line_count = 0;
@@ -196,5 +224,5 @@ BOOST_AUTO_TEST_CASE( Output_file_lines_match_token_count ) {
 	BOOST_REQUIRE(line_count == token_count);
 }
 
-
+BOOST_AUTO_TEST_SUITE_END()
 
