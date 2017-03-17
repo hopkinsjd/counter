@@ -1,0 +1,56 @@
+//
+//  counter.hpp
+//  counter
+//
+//  Created by John D. Hopkins on 3/13/17.
+//
+
+#ifndef counter_hpp
+#define counter_hpp
+
+#include <fstream>
+#include <string>
+#include <stdexcept>
+#include <list>
+
+class input_file_list {
+public:
+	/**
+	 *	Constructor
+	 *	
+	 *	@param anInputFile [IN] Filename of a text file containing a list of filenames, one filename per line. 
+	 *	Each file named contains UTF-8 text, the words of which will be counted.
+	 */
+	input_file_list (std::string anInputFile) {
+		iFile.open(anInputFile);
+		if (!iFile.is_open()) {
+			throw std::invalid_argument {"Unable to open file: " + anInputFile};
+		}
+		std::string line;
+		while ( getline(iFile, line) ) {
+			fileList.emplace_back(line);
+		}
+	}
+	
+	~input_file_list() {
+		iFile.close();
+	}
+	
+	unsigned long file_count() {
+		return fileList.size();
+	}
+	
+	auto begin() {
+		return fileList.begin();
+	}
+	
+	auto end() {
+		return fileList.end();
+	}
+private:
+	std::ifstream iFile;
+	std::list<std::ifstream> fileList;
+};
+
+
+#endif /* counter_hpp */
