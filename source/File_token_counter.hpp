@@ -59,6 +59,8 @@ namespace counterLib {
 		 Tokenizes the file of this object.
 		 Adds the unique tokens and their frequency counts 
 		 to the given Token_count_map.
+		 Always starts at beginning of the open file of this object,
+		 even when called again. 
 		 
 		 Tokenizing here is defined as separating the file into words
 			(characters delimited by whitespace),

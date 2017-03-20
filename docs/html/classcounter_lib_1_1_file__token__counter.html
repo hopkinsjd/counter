@@ -217,7 +217,7 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Tokenizes the file of this object. Adds the unique tokens and their frequency counts to the given Token_count_map.</p>
+<p>Tokenizes the file of this object. Adds the unique tokens and their frequency counts to the given Token_count_map. Always starts at beginning of the open file of this object, even when called again.</p>
 <p>Tokenizing here is defined as separating the file into words (characters delimited by whitespace), stripping leading and trailing punctuation, and forcing the token to be lowercase.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">

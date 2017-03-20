@@ -33,7 +33,7 @@ namespace counterLib {
 	}
 
 	Output_sorting_file::~Output_sorting_file() {
-		oFile.close();
+		oFile.close(); // not strictly necessary because ofstream closes itself when it goes out of scope, but makes things explicit if oFile implementation ever changed
 	}
 
 	void Output_sorting_file::set_sorted(Token_count_map& wcm) {
@@ -43,14 +43,23 @@ namespace counterLib {
 	}
 
 	void Output_sorting_file::write_to_output( std::ostream& out ) const {
-		for (auto i = cbegin(); i != cend(); ++i) {
-			out << i->first << ", " << i->second << std::endl;
+		for (auto i : *this) {
+			out << i.first << ", " << i.second << std::endl;
 		}
 	}
 
 	void Output_sorting_file::write_to_file() {
 		oFile.seekp(std::ios_base::beg);
 		write_to_output(oFile);
+	}
+	
+	void Output_sorting_file::swap (Output_sorting_file& other) noexcept {
+		tcSet.swap(other.tcSet);
+		oFile.swap(other.oFile);
+	}
+	
+	void swap(Output_sorting_file& left, Output_sorting_file& right ) noexcept {
+		left.swap(right);
 	}
 
 }

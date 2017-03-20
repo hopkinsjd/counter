@@ -33,6 +33,12 @@ namespace counterLib {
 		using TC_set_const_iter = std::set<Token_count>::const_iterator;
 		
 		/**
+		 *	Regular iterator for traversing internal set of sorted Token_count's.
+		 *	Allows use of Range For loop.
+		 */
+		using TC_set_iter = std::set<Token_count>::iterator;
+		
+		/**
 		 *	Initializing Constructor
 		 *
 		 *	Opens an output file for writing.
@@ -79,14 +85,29 @@ namespace counterLib {
 
 		 @return A constant iterator to the beginning of the set of unique token counts.
 		 */
-		TC_set_const_iter cbegin () const { return tcSet.cbegin(); }
+		TC_set_const_iter cbegin() const { return tcSet.cbegin(); }
 		
 		/**
-		 Gets the ending iterator of this object's current sorted data output.
+		 Non-const starting iterator of this objects' current sorted data output.
+		 Allows use of Range For loop.
+
+		 @return Iterator to the beginning of the set of unique token counts.
+		 */
+		TC_set_iter begin() const { return tcSet.begin(); }
+		
+		/**
+		 Gets the ending constant iterator of this object's current sorted data output.
 
 		 @return A constant iterator to just past the end of unique token counts.
 		 */
-		TC_set_const_iter cend () const { return tcSet.cend(); }
+		TC_set_const_iter cend() const { return tcSet.cend(); }
+		
+		/**
+		 Gets the ending iterator of this object's current sorted data output.
+		 
+		 @return An iterator to just past the end of unique token counts.
+		 */
+		TC_set_iter end() const { return tcSet.end(); }
 		
 		/**
 		 Writes the current sorted data to the given output stream.
@@ -104,6 +125,7 @@ namespace counterLib {
 		
 		/**
 		 Gets the number of unique tokens currently stored in the object.
+		 Will return 0 initially until after a call to set_sorted(). 
 
 		 @return The number of unique tokens.
 		 */
@@ -113,6 +135,15 @@ namespace counterLib {
 		 Clears the set of unique token counts currently stored in the object.
 		 */
 		void clear() { tcSet.clear(); }
+		
+		/**
+		 Member function that efficiently swaps the contents of this object.
+		 'swap' is used by various STL containers.
+		 So this member function is added in case an instance finds itself there.
+		 
+		 @param other [IN/OUT] Reference to another Input_file_list.
+		 */
+		void swap (Output_sorting_file& other) noexcept;
 		
 	private:
 		/**
@@ -127,6 +158,15 @@ namespace counterLib {
 		std::set<Token_count, TC_compare> tcSet; // token count set
 		std::ofstream oFile; // output file
 	};
+	
+	/**
+	 Forwards swapping to the member function
+	 that implements the operation most efficiently.
+	 
+	 @param left [IN/OUT] First Input_file_list. When done this will have the right values.
+	 @param right [IN/OUT] Second Input_file_list. When done this will have the left values
+	 */
+	void swap(Output_sorting_file& left, Output_sorting_file& right ) noexcept;
 	
 }
 #endif /* Output_sorting_file_hpp */

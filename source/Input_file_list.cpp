@@ -26,7 +26,7 @@ namespace counterLib {
 	}
 
 	Input_file_list::~Input_file_list() {
-		iFile.close();
+		iFile.close(); // not strictly necessary because ifstream closes itself when it goes out of scope, but makes things explicit if iFile implementation ever changed
 	}
 
 	Input_file_list& Input_file_list::operator= (Input_file_list&& x) noexcept {
