@@ -22,12 +22,43 @@ BOOST_AUTO_TEST_CASE( Open_input_file ) {
 }
 
 BOOST_AUTO_TEST_CASE( Get_a_list_of_files ) {
-	Input_file_list fl("input.txt");
-	BOOST_REQUIRE(fl.file_count() > 0);
+	// legitimate file opens
+	Input_file_list ifl("input.txt");
+	BOOST_REQUIRE(ifl.file_count() > 0); // one or more listed filenames
+	// We can iterate over them with range for loop and they are not empty strings.
+	for (auto fli : ifl)
+		BOOST_REQUIRE(!fli.empty());
 }
 
 BOOST_AUTO_TEST_CASE( Throw_error_when_opening_bad_input_file ) {
 	BOOST_REQUIRE_THROW(Input_file_list("bogus_file.txt"), std::invalid_argument);
+}
+
+BOOST_AUTO_TEST_CASE ( Move_constructor_and_assignment ) {
+	auto f = [](){ return Input_file_list ("input.txt"); }; // lambda
+	auto ifl1 = f(); // move assignment works
+	// Input_file_list ifl2(ifl1); // compiler error because copy constructor deleted
+	Input_file_list ifl2(std::move(ifl1)); // move constructor ok
+	// ifl1 = ifl2; // compiler error because copy assignment is deleted
+	BOOST_REQUIRE (ifl2.file_count() > 0);
+	BOOST_REQUIRE (ifl1.file_count() == 0);
+}
+
+BOOST_AUTO_TEST_CASE ( Swapping ) {
+	Input_file_list ifl1("input.txt");
+	Input_file_list ifl2("input2.txt");
+	unsigned long origFC1 = ifl1.file_count();
+	unsigned long origFC2 = ifl2.file_count();
+	
+	swap(ifl1, ifl2);
+	
+	BOOST_REQUIRE( ifl1.file_count() == origFC2 );
+	BOOST_REQUIRE( ifl2.file_count() == origFC1 );
+	
+	ifl1.swap(ifl2);
+	
+	BOOST_REQUIRE( ifl1.file_count() == origFC1 );
+	BOOST_REQUIRE( ifl2.file_count() == origFC2 );
 }
 
 BOOST_AUTO_TEST_SUITE_END()
@@ -100,6 +131,61 @@ BOOST_AUTO_TEST_CASE( Throw_error_when_opening_bad_token_file ) {
 	BOOST_REQUIRE_THROW(File_token_counter("bogus_file.txt"), std::invalid_argument);
 }
 
+BOOST_AUTO_TEST_CASE ( Move_constructor_and_assignment ) {
+	Token_count_map tcm1, tcm2, tcm3;
+
+	auto f = [](){ return File_token_counter ("test.txt"); }; // lambda
+	auto ftc1 = f(); // move assignment works
+	
+	ftc1.add_to_map(tcm1);
+	auto origTCTokenCount1 = tcm1.size();
+	BOOST_REQUIRE (origTCTokenCount1 > 0);
+	
+	//File_token_counter ftc2(ftc1); // compiler error because copy constructor deleted
+	File_token_counter ftc2(std::move(ftc1)); // move constructor ok
+	//ftc1 = ftc2; // compiler error because copy assignment is deleted
+	
+	ftc2.add_to_map(tcm2);
+	auto origTCTokenCount2 = tcm2.size();
+	
+	BOOST_REQUIRE (origTCTokenCount1 == origTCTokenCount2);
+	
+	ftc1.add_to_map(tcm3);
+	BOOST_REQUIRE (tcm3.size() == 0);
+}
+
+BOOST_AUTO_TEST_CASE ( Swapping ) {
+	File_token_counter ftc1("test.txt");
+	File_token_counter ftc2("test2.txt");
+	
+	Token_count_map tcm1, tcm2, tcm3, tcm4, tcm5, tcm6;
+	
+	ftc1.add_to_map(tcm1);
+	ftc2.add_to_map(tcm2);
+	
+	auto origTC1 = tcm1.size();
+	auto origTC2 = tcm2.size();
+	
+	BOOST_REQUIRE(origTC1 > 0);
+	BOOST_REQUIRE(origTC2 != origTC1);
+	
+	swap(ftc1, ftc2);
+	
+	ftc1.add_to_map(tcm3);
+	ftc2.add_to_map(tcm4);
+	
+	BOOST_REQUIRE( tcm3.size() == origTC2 );
+	BOOST_REQUIRE( tcm4.size() == origTC1 );
+	
+	ftc1.swap(ftc2);
+	
+	ftc1.add_to_map(tcm5);
+	ftc2.add_to_map(tcm6);
+	
+	BOOST_REQUIRE( tcm5.size() == origTC1 );
+	BOOST_REQUIRE( tcm6.size() == origTC2 );
+}
+
 BOOST_AUTO_TEST_SUITE_END()
 
 /*
@@ -170,9 +256,62 @@ BOOST_AUTO_TEST_CASE ( Output_tokens_are_unique ) {
 	
 }
 
+BOOST_AUTO_TEST_CASE ( Move_constructor_and_assignment ) {
+	File_token_counter ftc("test.txt");
+	Token_count_map tcm;
+	ftc.add_to_map(tcm);
+	
+	auto f = [](){ return Output_sorting_file ("output.txt"); }; // lambda
+	auto osf1 = f(); // move assignment works
+	
+	osf1.set_sorted(tcm);
+	auto origTokenCount = osf1.token_count();
+	BOOST_REQUIRE( origTokenCount > 0 );
+	
+	// Input_file_list ifl2(osf1); // compiler error because copy constructor deleted
+	Output_sorting_file osf2(std::move(osf1)); // move constructor ok
+	// osf1 = osf2; // compiler error because copy assignment is deleted
+	
+	BOOST_REQUIRE( osf2.token_count() == origTokenCount );
+	
+	BOOST_REQUIRE( osf1.token_count() == 0);
+}
+
+BOOST_AUTO_TEST_CASE ( Swapping ) {
+	File_token_counter ftc1 { "test.txt" };
+	File_token_counter ftc2 { "test2.txt" };
+	
+	Token_count_map tcm1, tcm2;
+	
+	ftc1.add_to_map(tcm1);
+	ftc2.add_to_map(tcm2);
+	
+	Output_sorting_file osf1 { "output.txt" };
+	Output_sorting_file osf2 { "output2.txt" };
+	
+	osf1.set_sorted(tcm1);
+	osf2.set_sorted(tcm2);
+	
+	auto origTCount1 = osf1.token_count();
+	auto origTCount2 = osf2.token_count();
+	
+	BOOST_REQUIRE( origTCount1 != origTCount2 );
+	
+	swap( osf1, osf2 );
+	
+	BOOST_REQUIRE( osf1.token_count() == origTCount2 );
+	BOOST_REQUIRE( osf2.token_count() == origTCount1 );
+	
+	osf1.swap(osf2);
+	
+	BOOST_REQUIRE( osf1.token_count() == origTCount1 );
+	BOOST_REQUIRE( osf2.token_count() == origTCount2 );
+}
+
 BOOST_AUTO_TEST_SUITE_END()
 
 
+/* COUNTER SINGLETON TESTS */
 namespace utf = boost::unit_test;
 
 struct F {

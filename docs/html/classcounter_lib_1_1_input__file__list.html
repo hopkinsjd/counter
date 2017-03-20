@@ -86,8 +86,12 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a729eb5ba171f7ce5e74fbe6a1b493ca5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3e469f43d87314b9d6c950206cf7a9c3"><td class="memItemLeft" align="right" valign="top">unsigned long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcounter_lib_1_1_input__file__list.html#a3e469f43d87314b9d6c950206cf7a9c3">file_count</a> () const noexcept</td></tr>
 <tr class="separator:a3e469f43d87314b9d6c950206cf7a9c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6ecd39c44a3e5b33e32d5a67ddbdec2f"><td class="memItemLeft" align="right" valign="top">Filename_list_const_iter&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcounter_lib_1_1_input__file__list.html#a6ecd39c44a3e5b33e32d5a67ddbdec2f">begin</a> () const noexcept</td></tr>
+<tr class="separator:a6ecd39c44a3e5b33e32d5a67ddbdec2f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aff889205313ac5d452f3ba88cbc934e5"><td class="memItemLeft" align="right" valign="top">Filename_list_const_iter&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcounter_lib_1_1_input__file__list.html#aff889205313ac5d452f3ba88cbc934e5">cbegin</a> () const noexcept</td></tr>
 <tr class="separator:aff889205313ac5d452f3ba88cbc934e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a534600d076625ab4f1c4ae395d01bee4"><td class="memItemLeft" align="right" valign="top">Filename_list_const_iter&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcounter_lib_1_1_input__file__list.html#a534600d076625ab4f1c4ae395d01bee4">end</a> () const noexcept</td></tr>
+<tr class="separator:a534600d076625ab4f1c4ae395d01bee4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a36e46aab50e8a6d2214b9637f284c4ed"><td class="memItemLeft" align="right" valign="top">Filename_list_const_iter&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcounter_lib_1_1_input__file__list.html#a36e46aab50e8a6d2214b9637f284c4ed">cend</a> () const noexcept</td></tr>
 <tr class="separator:a36e46aab50e8a6d2214b9637f284c4ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac75731cddc12303bc928ebd37f0e3e7b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classcounter_lib_1_1_input__file__list.html">Input_file_list</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcounter_lib_1_1_input__file__list.html#ac75731cddc12303bc928ebd37f0e3e7b">operator=</a> (const <a class="el" href="classcounter_lib_1_1_input__file__list.html">Input_file_list</a> &amp;)=delete</td></tr>
@@ -206,6 +210,33 @@ Public Member Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="a6ecd39c44a3e5b33e32d5a67ddbdec2f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6ecd39c44a3e5b33e32d5a67ddbdec2f">&#9670;&nbsp;</a></span>begin()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">Filename_list_const_iter counterLib::Input_file_list::begin </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Gets the beginning iteratator of the filename list of strings, extracted from the input file fed to the initializing constructor. Works with a range for loop.</p>
+<dl class="section return"><dt>Returns</dt><dd>The beginning iterator of the filename string list as a const_iterator to avoid violation of encapsulation. </dd></dl>
+
+</div>
+</div>
 <a id="aff889205313ac5d452f3ba88cbc934e5"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aff889205313ac5d452f3ba88cbc934e5">&#9670;&nbsp;</a></span>cbegin()</h2>
 
@@ -228,7 +259,7 @@ Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Gets the beginning const_iterator of the filename list of strings, extracted from the input file fed to the initializing constructor.</p>
+<p>Equivalent explicit const_iterator version of <a class="el" href="classcounter_lib_1_1_input__file__list.html#a6ecd39c44a3e5b33e32d5a67ddbdec2f">begin()</a>.</p>
 <dl class="section return"><dt>Returns</dt><dd>The beginning const_iterator of the filename string list. </dd></dl>
 
 </div>
@@ -255,8 +286,35 @@ Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Gets the ending const_iterator of the filename list of strings.</p>
+<p>Equivalent explicit const_iterator version of <a class="el" href="classcounter_lib_1_1_input__file__list.html#a534600d076625ab4f1c4ae395d01bee4">end()</a>.</p>
 <dl class="section return"><dt>Returns</dt><dd>The ending const_iterator of the filename string list. </dd></dl>
+
+</div>
+</div>
+<a id="a534600d076625ab4f1c4ae395d01bee4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a534600d076625ab4f1c4ae395d01bee4">&#9670;&nbsp;</a></span>end()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">Filename_list_const_iter counterLib::Input_file_list::end </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Gets the ending iterator of the filename list of strings. Works with a range for loop.</p>
+<dl class="section return"><dt>Returns</dt><dd>The ending iterator of the filename string list as a const_iterator to match above <a class="el" href="classcounter_lib_1_1_input__file__list.html#a6ecd39c44a3e5b33e32d5a67ddbdec2f">begin()</a>. </dd></dl>
 
 </div>
 </div>

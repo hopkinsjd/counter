@@ -21,9 +21,15 @@ namespace counterLib {
 		tcFile = std::move(other.tcFile);
 	}
 
-	File_token_counter::~File_token_counter() { tcFile.close(); }
+	File_token_counter::~File_token_counter() {
+		tcFile.close(); // not strictly necessary because ifstream closes itself when it goes out of scope, but makes things explicit if tcFile implementation ever changed
+	}
 
 	void File_token_counter::add_to_map(Token_count_map& tcm) {
+		// always start at beginning in case of multiple calls (tests)
+		tcFile.clear();
+		tcFile.seekg(0, tcFile.beg);
+		
 		std::string aWord;
 		while ( tcFile >> aWord ) {
 			std::string cleanWord = clean_word(aWord);

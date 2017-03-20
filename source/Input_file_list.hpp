@@ -76,8 +76,19 @@ namespace counterLib {
 		
 		
 		/**
-		 Gets the beginning const_iterator of the filename list of strings,
+		 Gets the beginning iteratator of the filename list of strings,
 		 extracted from the input file fed to the initializing constructor.
+		 Works with a range for loop.
+
+		 @return The beginning iterator of the filename string list as a const_iterator
+		 to avoid violation of encapsulation.
+		 */
+		Filename_list_const_iter begin() const noexcept {
+			return fileNameList.begin();
+		}
+		
+		/**
+		 Equivalent explicit const_iterator version of begin().
 
 		 @return The beginning const_iterator of the filename string list.
 		 */
@@ -86,8 +97,19 @@ namespace counterLib {
 		}
 		
 		/**
-		 Gets the ending const_iterator of the filename list of strings.
+		 Gets the ending iterator of the filename list of strings.
+		 Works with a range for loop.
 
+		 @return The ending iterator of the filename string list as a const_iterator
+		 to match above begin(). 
+		 */
+		Filename_list_const_iter end() const noexcept {
+			return fileNameList.end();
+		}
+		
+		/**
+		 Equivalent explicit const_iterator version of end().
+		 
 		 @return The ending const_iterator of the filename string list.
 		 */
 		Filename_list_const_iter cend() const noexcept {
