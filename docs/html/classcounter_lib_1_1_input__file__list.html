@@ -122,7 +122,7 @@ Public Member Functions</h2></td></tr>
 <p>Initializing Constructor</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">inputFileName</td><td>[IN] Filename (path) of a text file, containing a list of filenames, one filename per line. Each file listed should contain UTF-8 text, with word/tokens of which you may count using the <a class="el" href="classcounter_lib_1_1_file__token__counter.html">File_token_counter</a> class. The constructor will try to open the file and read the contained file names, putting them into the instance's fileNameList. The filenames in the list are not checked for their validity here, but will be when you use the <a class="el" href="classcounter_lib_1_1_file__token__counter.html">File_token_counter</a> class to open them. You can access them with this object's cbegin and cend const iterators. </td></tr>
+    <tr><td class="paramname">inputFileName</td><td>[IN] Filename (path) of a text file, containing a list of filenames, one filename per line. Each file listed should contain UTF-8 text, with word/tokens of which you may count using the <a class="el" href="classcounter_lib_1_1_file__token__counter.html">File_token_counter</a> class. The constructor will try to open the file and read the contained file names, putting them into the instance's _fileNameList. The filenames in the list are not checked for their validity here, but will be when you use the <a class="el" href="classcounter_lib_1_1_file__token__counter.html">File_token_counter</a> class to open them. You can access them with this object's cbegin and cend const iterators. </td></tr>
   </table>
   </dd>
 </dl>
@@ -340,7 +340,8 @@ Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>Gets the number of file names found in the file name list. This should correspond with the number of lines in the input file supplied to the initializing constructor. </dd></dl>
+<p>Gets the number of file names found in the file name list. This should correspond with the number of lines in the input file supplied to the initializing constructor.</p>
+<dl class="section return"><dt>Returns</dt><dd>The number of lines in the input file. Should correspond to filenames (paths relative to the program) of files with text for tokenization. </dd></dl>
 
 </div>
 </div>

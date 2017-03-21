@@ -10,28 +10,30 @@
 namespace counterLib {
 
 	File_token_counter::File_token_counter (const std::string& textFileName) {
-		tcFile.open(textFileName);
-		if (!tcFile.is_open()) {
+		_tcFile.open(textFileName);
+		if (!_tcFile.is_open()) {
 			throw std::invalid_argument {"File_token_counter unable to open listed file: " + textFileName + ". Make sure it exists in relationship to the program you are running."};
 		}
-		tcFile.setf(std::ios_base::skipws); // make the file stream skip white space
+		_tcFile.setf(std::ios_base::skipws); // make the file stream skip white space
 	}
 	
 	File_token_counter::File_token_counter (File_token_counter&& other) noexcept {
-		tcFile = std::move(other.tcFile);
+		_tcFile = std::move(other._tcFile);
 	}
 
 	File_token_counter::~File_token_counter() {
-		tcFile.close(); // not strictly necessary because ifstream closes itself when it goes out of scope, but makes things explicit if tcFile implementation ever changed
+		_tcFile.close();
+		// Not strictly necessary because ifstream closes itself when it goes out of scope.
+		// But makes things explicit if _tcFile implementation is ever changed.
 	}
 
 	void File_token_counter::add_to_map(Token_count_map& tcm) {
 		// always start at beginning in case of multiple calls (tests)
-		tcFile.clear();
-		tcFile.seekg(0, tcFile.beg);
+		_tcFile.clear();
+		_tcFile.seekg(0, _tcFile.beg);
 		
 		std::string aWord;
-		while ( tcFile >> aWord ) {
+		while ( _tcFile >> aWord ) {
 			std::string cleanWord = clean_word(aWord);
 			if (cleanWord != "") {
 				auto i = tcm.find(cleanWord);
@@ -47,7 +49,7 @@ namespace counterLib {
 	}
 
 	File_token_counter& File_token_counter::operator= (File_token_counter&& other) noexcept {
-		tcFile = std::move(other.tcFile);
+		_tcFile = std::move(other._tcFile);
 		return *this;
 	}
 	

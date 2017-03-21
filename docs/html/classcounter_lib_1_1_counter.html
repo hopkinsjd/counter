@@ -67,6 +67,7 @@ $(function() {
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-static-methods">Static Public Member Functions</a> &#124;
+<a href="#pub-static-attribs">Static Public Attributes</a> &#124;
 <a href="classcounter_lib_1_1_counter-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">counterLib::Counter Class Reference</div>  </div>
@@ -83,19 +84,27 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a9683a816a54c4a63d0b682fa048b6088"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a222528ff0442ba2f3c4b15e5a0b560a0"><td class="memItemLeft" align="right" valign="top">unsigned long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcounter_lib_1_1_counter.html#a222528ff0442ba2f3c4b15e5a0b560a0">count_tokens</a> ()</td></tr>
 <tr class="separator:a222528ff0442ba2f3c4b15e5a0b560a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a200ed96f183d86300976ad7531950839"><td class="memItemLeft" align="right" valign="top">unsigned long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcounter_lib_1_1_counter.html#a200ed96f183d86300976ad7531950839">concurrent_count_tokens</a> ()</td></tr>
+<tr class="separator:a200ed96f183d86300976ad7531950839"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa8ffc773a9a6b2cfce125ef5a52ad8eb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcounter_lib_1_1_counter.html#aa8ffc773a9a6b2cfce125ef5a52ad8eb">generate_output</a> ()</td></tr>
 <tr class="separator:aa8ffc773a9a6b2cfce125ef5a52ad8eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a67ce0a0f72347acd37d0996d05d384f8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcounter_lib_1_1_counter.html#a67ce0a0f72347acd37d0996d05d384f8">result_to_output</a> (std::ostream &amp;out)</td></tr>
 <tr class="separator:a67ce0a0f72347acd37d0996d05d384f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a600f696da2d5a7de5159dcd45847886f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcounter_lib_1_1_counter.html#a600f696da2d5a7de5159dcd45847886f">add_map</a> (const Token_count_map &amp;aTCM)</td></tr>
+<tr class="separator:a600f696da2d5a7de5159dcd45847886f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a078c4f4fff7838097ce2ed525ac42c55"><td class="memItemLeft" align="right" valign="top"><a id="a078c4f4fff7838097ce2ed525ac42c55"></a>
-static <a class="el" href="classcounter_lib_1_1_counter.html">Counter</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>singleton_instance</b> (const std::string inputFileName, const std::string outputFileName)</td></tr>
-<tr class="separator:a078c4f4fff7838097ce2ed525ac42c55"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a176e3dd0d4594b74d6e368dd8f45df04"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classcounter_lib_1_1_counter.html">Counter</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcounter_lib_1_1_counter.html#a176e3dd0d4594b74d6e368dd8f45df04">singleton_instance</a> (const char *inputFileName, const char *outputFileName)</td></tr>
+<tr class="separator:a176e3dd0d4594b74d6e368dd8f45df04"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
+Static Public Attributes</h2></td></tr>
+<tr class="memitem:a7a8b0c7d1b9770fb360531445f34933b"><td class="memItemLeft" align="right" valign="top">static const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcounter_lib_1_1_counter.html#a7a8b0c7d1b9770fb360531445f34933b">concurrency_file_number_threshold</a> = 2</td></tr>
+<tr class="separator:a7a8b0c7d1b9770fb360531445f34933b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Main class for the 'counter' program. Brings together all other classes. Directly instantiated and called in main(). All other custom classes for this program essentially wrap files. Following RAII (Resource Acquisition Is Initialization), each of the other classes opens a file for the name passed to its constructor. The file is then closed in the class's destructor. As this class initializes the input and output file classes as data members, their files are also open for the lifetime of an instance of this class. Because the file stream data members of this class's aggregate classes are not copyable, neither is this class. </p>
+<div class="textblock"><p>Main class for the 'counter' program. Brings together all other classes. Directly instantiated and called in main(). All other custom classes for this program essentially wrap files. Following RAII (Resource Acquisition Is Initialization), each of the other classes opens a file for the name passed to its constructor. The file is then closed in the class's destructor. As this class initializes the input and output file classes as data members, their files are also open for the lifetime of an instance of this class. Because the file stream data members of this class's contained classes are not copyable, neither is this class. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a7489c2c462c49d1782fd26b7a2f30268"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a7489c2c462c49d1782fd26b7a2f30268">&#9670;&nbsp;</a></span>~Counter()</h2>
@@ -117,6 +126,50 @@ static <a class="el" href="classcounter_lib_1_1_counter.html">Counter</a> *&#160
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="a600f696da2d5a7de5159dcd45847886f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a600f696da2d5a7de5159dcd45847886f">&#9670;&nbsp;</a></span>add_map()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void counterLib::Counter::add_map </td>
+          <td>(</td>
+          <td class="paramtype">const Token_count_map &amp;&#160;</td>
+          <td class="paramname"><em>aTCM</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Adds the given Token_count_map to that of this object.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">aTCM</td><td>[IN] The Token_count_map to add. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a200ed96f183d86300976ad7531950839"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a200ed96f183d86300976ad7531950839">&#9670;&nbsp;</a></span>concurrent_count_tokens()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned long counterLib::Counter::concurrent_count_tokens </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Tokenizes the files listed in the input file concurrently, counting their unique individual frequencies. Call before <a class="el" href="classcounter_lib_1_1_counter.html#aa8ffc773a9a6b2cfce125ef5a52ad8eb">generate_output()</a>.</p>
+<dl class="section return"><dt>Returns</dt><dd>The total number of unique tokens found. </dd></dl>
+
+</div>
+</div>
 <a id="a222528ff0442ba2f3c4b15e5a0b560a0"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a222528ff0442ba2f3c4b15e5a0b560a0">&#9670;&nbsp;</a></span>count_tokens()</h2>
 
@@ -202,6 +255,75 @@ static <a class="el" href="classcounter_lib_1_1_counter.html">Counter</a> *&#160
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a id="a176e3dd0d4594b74d6e368dd8f45df04"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a176e3dd0d4594b74d6e368dd8f45df04">&#9670;&nbsp;</a></span>singleton_instance()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classcounter_lib_1_1_counter.html">Counter</a> * counterLib::Counter::singleton_instance </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>inputFileName</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>outputFileName</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Singleton Constructor. Returns only one instance of <a class="el" href="classcounter_lib_1_1_counter.html">Counter</a> per session.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">inputFileName</td><td>[IN] Filename (path) of a file containing a list of other filenames of files to be tokenized and counted. </td></tr>
+    <tr><td class="paramname">outputFileName</td><td>[IN/OUT] Filename (path) of a file to place the sorted tokens of all the files and their frequencies. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Pointer to a singleton instance of a <a class="el" href="classcounter_lib_1_1_counter.html">Counter</a> object. </dd></dl>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a7a8b0c7d1b9770fb360531445f34933b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7a8b0c7d1b9770fb360531445f34933b">&#9670;&nbsp;</a></span>concurrency_file_number_threshold</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const int counterLib::Counter::concurrency_file_number_threshold = 2</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>The minimum number of files to be tokenized when concurrency methods will be invoked. </p>
 
 </div>
 </div>

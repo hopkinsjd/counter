@@ -34,7 +34,7 @@ BOOST_AUTO_TEST_CASE( Throw_error_when_opening_bad_input_file ) {
 	BOOST_REQUIRE_THROW(Input_file_list("bogus_file.txt"), std::invalid_argument);
 }
 
-BOOST_AUTO_TEST_CASE ( Move_constructor_and_assignment ) {
+BOOST_AUTO_TEST_CASE( Move_constructor_and_assignment ) {
 	auto f = [](){ return Input_file_list ("input.txt"); }; // lambda
 	auto ifl1 = f(); // move assignment works
 	// Input_file_list ifl2(ifl1); // compiler error because copy constructor deleted
@@ -44,7 +44,7 @@ BOOST_AUTO_TEST_CASE ( Move_constructor_and_assignment ) {
 	BOOST_REQUIRE (ifl1.file_count() == 0);
 }
 
-BOOST_AUTO_TEST_CASE ( Swapping ) {
+BOOST_AUTO_TEST_CASE( Swapping ) {
 	Input_file_list ifl1("input.txt");
 	Input_file_list ifl2("input2.txt");
 	unsigned long origFC1 = ifl1.file_count();
@@ -61,6 +61,11 @@ BOOST_AUTO_TEST_CASE ( Swapping ) {
 	BOOST_REQUIRE( ifl2.file_count() == origFC2 );
 }
 
+BOOST_AUTO_TEST_CASE( Empty_file ) {
+	Input_file_list ifl("empty.txt");
+	BOOST_REQUIRE( ifl.file_count() == 0 );
+}
+
 BOOST_AUTO_TEST_SUITE_END()
 
 
@@ -71,7 +76,7 @@ BOOST_AUTO_TEST_SUITE_END()
 			stripping leading and trailing punctuation, 
 			and forcing the token to be lowercase.
  */
-BOOST_AUTO_TEST_SUITE ( File_token_counter_test_suite )
+BOOST_AUTO_TEST_SUITE( File_token_counter_test_suite )
 
 BOOST_AUTO_TEST_CASE( Open_each_file_for_token_counts ) {
 	Input_file_list ifl("input.txt");
@@ -89,7 +94,7 @@ BOOST_AUTO_TEST_CASE( Tokenized_content_exists ) {
 		File_token_counter tc(*fnIter);
 		tc.add_to_map(tcm);
 	}
-	BOOST_REQUIRE(tcm.size() > 0);
+	BOOST_REQUIRE( tcm.size() > 0 );
 	
 }
 
@@ -105,7 +110,7 @@ BOOST_AUTO_TEST_CASE( Token_keys_are_strictly_alphanumeric ) {
 	
 	for (auto p : tcm) {
 		for (auto c : p.first) {
-			BOOST_REQUIRE(isalnum(c));
+			BOOST_REQUIRE( isalnum(c) );
 		}
 	}
 }
@@ -122,16 +127,16 @@ BOOST_AUTO_TEST_CASE( Token_keys_are_strictly_lowercase ) {
 	
 	for (auto p : tcm) {
 		for (auto c : p.first) {
-			BOOST_REQUIRE(islower(c));
+			BOOST_REQUIRE( islower(c) );
 		}
 	}
 }
 
 BOOST_AUTO_TEST_CASE( Throw_error_when_opening_bad_token_file ) {
-	BOOST_REQUIRE_THROW(File_token_counter("bogus_file.txt"), std::invalid_argument);
+	BOOST_REQUIRE_THROW( File_token_counter("bogus_file.txt"), std::invalid_argument );
 }
 
-BOOST_AUTO_TEST_CASE ( Move_constructor_and_assignment ) {
+BOOST_AUTO_TEST_CASE( Move_constructor_and_assignment ) {
 	Token_count_map tcm1, tcm2, tcm3;
 
 	auto f = [](){ return File_token_counter ("test.txt"); }; // lambda
@@ -148,13 +153,13 @@ BOOST_AUTO_TEST_CASE ( Move_constructor_and_assignment ) {
 	ftc2.add_to_map(tcm2);
 	auto origTCTokenCount2 = tcm2.size();
 	
-	BOOST_REQUIRE (origTCTokenCount1 == origTCTokenCount2);
+	BOOST_REQUIRE( origTCTokenCount1 == origTCTokenCount2 );
 	
 	ftc1.add_to_map(tcm3);
-	BOOST_REQUIRE (tcm3.size() == 0);
+	BOOST_REQUIRE( tcm3.size() == 0 );
 }
 
-BOOST_AUTO_TEST_CASE ( Swapping ) {
+BOOST_AUTO_TEST_CASE( Swapping ) {
 	File_token_counter ftc1("test.txt");
 	File_token_counter ftc2("test2.txt");
 	
@@ -166,8 +171,8 @@ BOOST_AUTO_TEST_CASE ( Swapping ) {
 	auto origTC1 = tcm1.size();
 	auto origTC2 = tcm2.size();
 	
-	BOOST_REQUIRE(origTC1 > 0);
-	BOOST_REQUIRE(origTC2 != origTC1);
+	BOOST_REQUIRE( origTC1 > 0 );
+	BOOST_REQUIRE( origTC2 != origTC1 );
 	
 	swap(ftc1, ftc2);
 	
@@ -186,6 +191,13 @@ BOOST_AUTO_TEST_CASE ( Swapping ) {
 	BOOST_REQUIRE( tcm6.size() == origTC2 );
 }
 
+BOOST_AUTO_TEST_CASE( Empty_file ) {
+	File_token_counter ftc { "empty.txt" };
+	Token_count_map tcm;
+	ftc.add_to_map(tcm);
+	BOOST_REQUIRE( tcm.size() == 0 );
+}
+
 BOOST_AUTO_TEST_SUITE_END()
 
 /*
@@ -193,13 +205,13 @@ BOOST_AUTO_TEST_SUITE_END()
 		containing a list of total unique tokens and their count, 
 		each on a separate line, sorted by frequency.
 */
-BOOST_AUTO_TEST_SUITE ( Output_sorting_file_test_suite )
+BOOST_AUTO_TEST_SUITE( Output_sorting_file_test_suite )
 
 BOOST_AUTO_TEST_CASE( Can_open_output_file ) {
 	BOOST_REQUIRE_NO_THROW(Output_sorting_file("output.txt"));
 }
 
-BOOST_AUTO_TEST_CASE ( Output_is_generated ) {
+BOOST_AUTO_TEST_CASE( Output_is_generated ) {
 	Input_file_list ifl("input.txt");
 	
 	Token_count_map tcm;
@@ -215,7 +227,7 @@ BOOST_AUTO_TEST_CASE ( Output_is_generated ) {
 	BOOST_REQUIRE( osf.token_count() > 0 );
 }
 
-BOOST_AUTO_TEST_CASE ( Output_is_sorted_by_frequency ) {
+BOOST_AUTO_TEST_CASE( Output_is_sorted_by_frequency ) {
 	Input_file_list ifl("input.txt");
 	
 	Token_count_map tcm;
@@ -230,11 +242,11 @@ BOOST_AUTO_TEST_CASE ( Output_is_sorted_by_frequency ) {
 	
 	auto a = osf.cbegin(), b = osf.cbegin();
 	for ( ++b ; b != osf.cend(); ++a, ++b) {
-		BOOST_REQUIRE(a->second >= b->second);
+		BOOST_REQUIRE( a->second >= b->second );
 	}
 }
 
-BOOST_AUTO_TEST_CASE ( Output_tokens_are_unique ) {
+BOOST_AUTO_TEST_CASE( Output_tokens_are_unique ) {
 	Input_file_list ifl("input.txt");
 	
 	Token_count_map tcm;
@@ -252,11 +264,11 @@ BOOST_AUTO_TEST_CASE ( Output_tokens_are_unique ) {
 		token_set.insert(i->first);
 	}
 	
-	BOOST_REQUIRE(token_set.size() == osf.token_count());
+	BOOST_REQUIRE( token_set.size() == osf.token_count() );
 	
 }
 
-BOOST_AUTO_TEST_CASE ( Move_constructor_and_assignment ) {
+BOOST_AUTO_TEST_CASE( Move_constructor_and_assignment ) {
 	File_token_counter ftc("test.txt");
 	Token_count_map tcm;
 	ftc.add_to_map(tcm);
@@ -274,10 +286,10 @@ BOOST_AUTO_TEST_CASE ( Move_constructor_and_assignment ) {
 	
 	BOOST_REQUIRE( osf2.token_count() == origTokenCount );
 	
-	BOOST_REQUIRE( osf1.token_count() == 0);
+	BOOST_REQUIRE( osf1.token_count() == 0 );
 }
 
-BOOST_AUTO_TEST_CASE ( Swapping ) {
+BOOST_AUTO_TEST_CASE( Swapping ) {
 	File_token_counter ftc1 { "test.txt" };
 	File_token_counter ftc2 { "test2.txt" };
 	
@@ -314,9 +326,10 @@ BOOST_AUTO_TEST_SUITE_END()
 /* COUNTER SINGLETON TESTS */
 namespace utf = boost::unit_test;
 
+// fixture struct for this upcoming suite of tests
 struct F {
 	F() {
-		 Counter_singleton = Counter::singleton_instance( "input.txt", "output.txt");
+		 Counter_singleton = Counter::singleton_instance( "input2.txt", "output.txt");
 	}
 	
 	~F() {
@@ -329,9 +342,9 @@ struct F {
 
 Counter* F::Counter_singleton = nullptr;
 
-BOOST_AUTO_TEST_SUITE ( Counter_singleton_test_suite, * utf::fixture<F>() )
+BOOST_AUTO_TEST_SUITE( Counter_singleton_test_suite, * utf::fixture<F>() )
 
-BOOST_AUTO_TEST_CASE ( Output_file_generated ) {
+BOOST_AUTO_TEST_CASE( Output_file_generated ) {
 	
 	F::Counter_singleton->execute();
 	
@@ -349,6 +362,8 @@ BOOST_AUTO_TEST_CASE( Output_file_lines_match_token_count ) {
 	unsigned long token_count = 0;
 	
 	token_count = F::Counter_singleton->count_tokens();
+	BOOST_REQUIRE ( token_count > 0 );
+	
 	F::Counter_singleton->generate_output();
 	
 	std::ifstream output_file ("output.txt");
@@ -360,7 +375,11 @@ BOOST_AUTO_TEST_CASE( Output_file_lines_match_token_count ) {
 		}
 	}
 	
-	BOOST_REQUIRE(line_count == token_count);
+	BOOST_REQUIRE( line_count == token_count );
+}
+
+BOOST_AUTO_TEST_CASE( Concurrent_token_counting ) {
+	BOOST_REQUIRE( F::Counter_singleton->count_tokens() == F::Counter_singleton->concurrent_count_tokens() );
 }
 
 BOOST_AUTO_TEST_SUITE_END()
