@@ -20,25 +20,27 @@ namespace counterLib {
 		return AIsGreaterThanB;
 	}
 
-	Output_sorting_file::Output_sorting_file(const std::string outputFileName) {
-		oFile.open(outputFileName);
-		if (!oFile.is_open()) {
+	Output_sorting_file::Output_sorting_file(const std::string& outputFileName) {
+		_oFile.open(outputFileName);
+		if (!_oFile.is_open()) {
 			throw std::invalid_argument {"Output_sorting_file_unable to open output file: " + outputFileName};
 		}
 	}
 	
 	Output_sorting_file::Output_sorting_file (Output_sorting_file&& other) noexcept {
-		oFile = std::move(other.oFile);
-		tcSet = std::move(other.tcSet);
+		_oFile = std::move(other._oFile);
+		_tcSet = std::move(other._tcSet);
 	}
 
 	Output_sorting_file::~Output_sorting_file() {
-		oFile.close(); // not strictly necessary because ofstream closes itself when it goes out of scope, but makes things explicit if oFile implementation ever changed
+		_oFile.close();
+		// Not strictly necessary because ofstream closes itself when it goes out of scope.
+		// But this makes things explicit if the _oFile implementation is ever changed.
 	}
 
 	void Output_sorting_file::set_sorted(Token_count_map& wcm) {
 		for(auto i = wcm.begin(); i != wcm.end(); ++i) {
-			tcSet.emplace(*i);
+			_tcSet.emplace(*i);
 		}
 	}
 
@@ -49,13 +51,13 @@ namespace counterLib {
 	}
 
 	void Output_sorting_file::write_to_file() {
-		oFile.seekp(std::ios_base::beg);
-		write_to_output(oFile);
+		_oFile.seekp(std::ios_base::beg);
+		write_to_output(_oFile);
 	}
 	
 	void Output_sorting_file::swap (Output_sorting_file& other) noexcept {
-		tcSet.swap(other.tcSet);
-		oFile.swap(other.oFile);
+		_tcSet.swap(other._tcSet);
+		_oFile.swap(other._oFile);
 	}
 	
 	void swap(Output_sorting_file& left, Output_sorting_file& right ) noexcept {

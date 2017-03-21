@@ -16,45 +16,45 @@ namespace counterLib {
 	using Filename_list_const_iter = std::list<std::string>::const_iterator;
 
 	/**
-	 *	The class encapsulates an input file and its contents. 
-	 *	The input file should contain a list of file names, one name (path) per line.
-	 *	Because the file stream data member of this class is not copyable, 
-	 *	neither is this class.
-	 *	The file given to the constructor, if successfully opened,
-	 *	will remain open for the lifetime of the instance.
-	 *	The destructor will close it.
+	 The class encapsulates an input file and its contents.
+	 The input file should contain a list of file names, one name (path) per line.
+	 Because the file stream data member of this class is not copyable,
+	 neither is this class.
+	 The file given to the constructor, if successfully opened,
+	 will remain open for the lifetime of the instance.
+	 The destructor will close it.
 	 */
 	class Input_file_list {
 	public:
 		/**
-		 *	Initializing Constructor
-		 *
-		 *	@param inputFileName [IN] Filename (path) of a text file,
-		 *		containing a list of filenames, one filename per line.
-		 *		Each file listed should contain UTF-8 text, 
-		 *		with word/tokens of which you may count 
-		 *		using the File_token_counter class.
-		 *		The constructor will try to open the file and 
-		 *		read the contained file names,
-		 *		putting them into the instance's fileNameList.
-		 *		The filenames in the list are not checked for their validity here,
-		 *		but will be when you use the File_token_counter class to open them.
-		 *		You can access them with this object's cbegin and cend const iterators.
+		 Initializing Constructor
+		 
+		 @param inputFileName [IN] Filename (path) of a text file,
+		 	containing a list of filenames, one filename per line.
+		 	Each file listed should contain UTF-8 text,
+		 	with word/tokens of which you may count
+		 	using the File_token_counter class.
+		 	The constructor will try to open the file and
+		 	read the contained file names,
+		 	putting them into the instance's _fileNameList.
+		 	The filenames in the list are not checked for their validity here,
+		 	but will be when you use the File_token_counter class to open them.
+		 	You can access them with this object's cbegin and cend const iterators.
 		 */
 		Input_file_list (const std::string& inputFileName);
 		
 		/**
-		 *	Copy constructer (deleted)
-		 *
-		 *	Deleted because can't copy ifstreams (iFile).
-		 *
+		 Copy constructer (deleted)
+		 
+		 Deleted because can't copy ifstreams (iFile).
+		 
 		 */
 		Input_file_list (const Input_file_list&) = delete;
 		
 		/**
-		 *	Move constructor (works)
-		 *
-		 *	@param other [IN] rvalue of another Input_file_list.
+		 Move constructor (works)
+		 
+		 @param other [IN] rvalue of another Input_file_list.
 		 */
 		Input_file_list (Input_file_list&& other) noexcept;
 		
@@ -66,12 +66,16 @@ namespace counterLib {
 		~Input_file_list();
 		
 		/**
-		 * @return Gets the number of file names found in the file name list.
-		 * This should correspond with the number of lines in the input file
-		 * supplied to the initializing constructor.
+		 Gets the number of file names found in the file name list.
+		 This should correspond with the number of lines in the input file
+		 supplied to the initializing constructor.
+		 
+		 @return The number of lines in the input file.
+			Should correspond to filenames (paths relative to the program)
+			of files with text for tokenization.
 		 */
 		unsigned long file_count() const noexcept {
-			return fileNameList.size();
+			return _fileNameList.size();
 		}
 		
 		
@@ -84,7 +88,7 @@ namespace counterLib {
 		 to avoid violation of encapsulation.
 		 */
 		Filename_list_const_iter begin() const noexcept {
-			return fileNameList.begin();
+			return _fileNameList.begin();
 		}
 		
 		/**
@@ -93,7 +97,7 @@ namespace counterLib {
 		 @return The beginning const_iterator of the filename string list.
 		 */
 		Filename_list_const_iter cbegin() const noexcept {
-			return fileNameList.cbegin();
+			return _fileNameList.cbegin();
 		}
 		
 		/**
@@ -104,7 +108,7 @@ namespace counterLib {
 		 to match above begin(). 
 		 */
 		Filename_list_const_iter end() const noexcept {
-			return fileNameList.end();
+			return _fileNameList.end();
 		}
 		
 		/**
@@ -113,7 +117,7 @@ namespace counterLib {
 		 @return The ending const_iterator of the filename string list.
 		 */
 		Filename_list_const_iter cend() const noexcept {
-			return fileNameList.cend();
+			return _fileNameList.cend();
 		}
 		
 		/**
@@ -142,8 +146,8 @@ namespace counterLib {
 		void swap (Input_file_list& other) noexcept;
 		
 	private:
-		std::ifstream iFile; // Stores the open input file stream.
-		std::list<std::string> fileNameList; /** Stores each line of the input file as an item. Features fast entry of many unknown lines of text. */
+		std::ifstream _iFile; // Stores the open input file stream.
+		std::list<std::string> _fileNameList; /** Stores each line of the input file as an item. Features fast entry of many unknown lines of text. */
 	};
 
 	/**

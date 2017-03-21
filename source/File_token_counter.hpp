@@ -36,7 +36,7 @@ namespace counterLib {
 		/**
 		 *	Copy constructer (deleted)
 		 *
-		 *	Deleted because can't copy ifstreams (tcFile).
+		 *	Deleted because can't copy ifstreams (_tcFile).
 		 *
 		 */
 		File_token_counter (const File_token_counter&) = delete;
@@ -93,10 +93,10 @@ namespace counterLib {
 		 
 		 @param other [IN/OUT] Reference to another File_token_counter.
 		 */
-		void swap (File_token_counter& other) noexcept { tcFile.swap(other.tcFile); }
+		void swap (File_token_counter& other) noexcept { _tcFile.swap(other._tcFile); }
 		
 	private:
-		std::ifstream tcFile; // stores the open file stream of this object
+		std::ifstream _tcFile; // stores the open file stream of this object
 				
 	};
 	

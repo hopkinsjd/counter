@@ -10,34 +10,36 @@
 namespace counterLib {
 
 	Input_file_list::Input_file_list (const std::string& inputFileName) {
-		iFile.open(inputFileName);
-		if (!iFile.is_open()) {
+		_iFile.open(inputFileName);
+		if (!_iFile.is_open()) {
 			throw std::invalid_argument {"Input_file_list unable to open the input file: " + inputFileName + ". Make sure it exists in relationship to the program you are running."};
 		}
 		std::string line;
-		while ( getline(iFile, line) ) {
-			fileNameList.emplace_back(line);
+		while ( getline(_iFile, line) ) {
+			_fileNameList.emplace_back(line);
 		}
 	}
 
 	Input_file_list::Input_file_list (Input_file_list&& other) noexcept {
-		iFile = std::move(other.iFile);
-		fileNameList = std::move(other.fileNameList);
+		_iFile = std::move(other._iFile);
+		_fileNameList = std::move(other._fileNameList);
 	}
 
 	Input_file_list::~Input_file_list() {
-		iFile.close(); // not strictly necessary because ifstream closes itself when it goes out of scope, but makes things explicit if iFile implementation ever changed
+		_iFile.close();
+		// Not strictly necessary because ifstream closes itself when it goes out of scope.
+		// But makes things explicit if _iFile implementation is ever changed.
 	}
 
 	Input_file_list& Input_file_list::operator= (Input_file_list&& x) noexcept {
-		iFile = std::move(x.iFile);
-		fileNameList = std::move(x.fileNameList);
+		_iFile = std::move(x._iFile);
+		_fileNameList = std::move(x._fileNameList);
 		return *this;
 	}
 
 	void Input_file_list::swap (Input_file_list& other) noexcept {
-		iFile.swap(other.iFile);
-		fileNameList.swap(other.fileNameList);
+		_iFile.swap(other._iFile);
+		_fileNameList.swap(other._fileNameList);
 	}
 	
 	void swap(Input_file_list & left,

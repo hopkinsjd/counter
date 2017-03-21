@@ -30,7 +30,7 @@ int main(int argc, const char * argv[]) {
 			std::cout << "Invalid argument: " << ia.what() << std::endl;
 			theErr = 2;
 		}
-		catch (std::exception& e ) {
+		catch (std::exception& e) {
 			std::cout << e.what() << std::endl;
 			theErr = 3;
 		}
